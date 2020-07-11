@@ -1,0 +1,78 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <meta name="description" content="Login - Register Template">
+    <meta name="author" content="Lorenzo Angelino aka MrLolok">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            background-color: #303641;
+        }
+    </style>
+</head>
+<script>
+    function addCourse(){
+            var course_id= document.getElementById("course_id").value;
+            var course_name=document.getElementById("course_name").value;
+            if((course_id== "")||(course_name==""))
+            {
+                alert("Course ID or Course Name field is empty");
+            }
+            else{
+            	const options={
+            			method:'POST',
+            			header:{
+            			'Content-Type':'application/json'
+            			},
+            			body: JSON.stringify({
+            			courseid:course_id,
+            			coursename:course_name
+            			})
+            			};
+            			fetch('/api',options).then(function(response){
+            			return response.json();
+            			})
+            			.then(function(data){
+            	          if(data.value==true){
+            	        	 alert("course added");
+            			  }
+            			  else{
+            			  alert("course already esists");
+            			  }
+            			})
+                }
+        }
+</script>
+<body>
+    <div id="container-login">
+        <div id="title">
+            <i class="material-icons book">book</i> Add Course
+        </div>
+
+        <form  >
+            <div class="input">
+                <div class="input-addon">
+                    <i class="material-icons"></i>
+                </div>
+                <input id="course_id" placeholder="Course ID" type="text" required class="validate" autocomplete="off">
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="input">
+                <div class="input-addon">
+                    <i class="material-icons"></i>
+                </div>
+                <input id="course_name" placeholder="Course Name" type="text" required class="validate" autocomplete="off">
+            </div>
+            <button type="submit" onclick = "addCourse()" id="register-link">Add</button>
+       </form>           
+        </div>
+  
+</body>
+
+</html>
